@@ -3,13 +3,14 @@
 #include <cstdlib>
 #include <iostream>
 
-Player::Player(uint16_t uXCoord, uint16_t uYCoord, uint16_t uSize) noexcept : Entity(uXCoord, uYCoord, uSize), m_uMovementSpeed(1), m_eCurrentDirection(DIRECTION::NORTH) {}
+Player::Player(uint16_t uXCoord, uint16_t uYCoord, uint16_t uSize, uint16_t uID) noexcept : Entity(uXCoord, uYCoord, uSize, uID), m_uMovementSpeed(1), m_eCurrentDirection(DIRECTION::NORTH) {}
 
 void Player::Act() 
 {
     this->_Move();
     this->_ChangeDirection();
-
+    std::cout << "Node " << m_uID << '\n';
+    std::cout << "Current Position X: " << m_uXCoord << " Y: " << m_uYCoord << '\n';
 }
 
 void Player::_Move()

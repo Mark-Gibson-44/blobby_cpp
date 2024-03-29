@@ -14,7 +14,7 @@ set(SANITIZER_TYPES NONE UBSAN_ASAN TSAN)
 
 set(DISABLE_RUNTIME_WARNINGS No     CACHE BOOL "Disable runtime warnings")
 set(WARNINGS_AS_ERRORS Yes     CACHE BOOL "Warnings as errors")
-set(ENABLE_SANITIZERS  NONE     CACHE BOOL "Build with a sanitizer")
+set(ENABLE_SANITIZERS  UBSAN_ASAN     CACHE BOOL "Build with a sanitizer")
 
 
 if(UNIX)

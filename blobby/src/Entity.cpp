@@ -2,9 +2,9 @@
 #include "utils.h"
 
 
-Entity::Entity() noexcept : m_uXCoord(0), m_uYCoord(0), m_uRadius(1) {}
+Entity::Entity() noexcept : m_uXCoord(0), m_uYCoord(0), m_uRadius(1), m_uID(0) {}
 
-Entity::Entity(uint16_t uXCoord, uint16_t uYCoord, uint16_t uRadius) noexcept : m_uXCoord(uXCoord), m_uYCoord(uYCoord), m_uRadius(uRadius) {};
+Entity::Entity(uint16_t uXCoord, uint16_t uYCoord, uint16_t uRadius, uint16_t uID) noexcept : m_uXCoord(uXCoord), m_uYCoord(uYCoord), m_uRadius(uRadius), m_uID(uID) {};
 
 bool Entity::IsColliding(const Entity& sOtherEntity) noexcept
 {

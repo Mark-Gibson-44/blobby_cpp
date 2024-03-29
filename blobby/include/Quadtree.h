@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <cstdlib>
 
+#include <iostream>
 #include <vector>
 
 #include "Entity.h"
@@ -38,7 +39,7 @@ Box CreateBoundingBox(Iterator begin,Iterator end)
     Box result;
     while(begin != end)
     {
-        result = result.Extend(*begin);
+        result = result.Extend((*begin)->GetCoordinates());
         begin++;
     }
 
@@ -56,7 +57,8 @@ struct QuadTree
     Box sBoundingBox;
     uint16_t uRootID = 0;
     std::vector<TreeNode> sNodes;
-    //std::vector<Entity>??
+    std::vector<Entity*> sObjects;
+    std::vector<uint32_t> arrBegin;
 };
 
 template <typename Iterator>
@@ -73,7 +75,9 @@ uint16_t build_impl(QuadTree& sTree, Box bbox, Iterator begin, Iterator end, uin
         return result;
     }
     sTree.sNodes.emplace_back();
+    sTree.arrBegin.emplace_back();
 
+    sTree.arrBegin[result] = (begin - sTree.sObjects.begin());
     if(begin + 1 == end)
     {
         return result;
@@ -81,10 +85,10 @@ uint16_t build_impl(QuadTree& sTree, Box bbox, Iterator begin, Iterator end, uin
 
     TCoordinates sCenter = MidPoint(bbox.tBottomCorner, bbox.tTopCorner);
     // Split y part
-    Iterator yPartition = std::partition(begin, end, [sCenter](TCoordinates p) { return p.second < sCenter.second;} );
+    Iterator yPartition = std::partition(begin, end, [sCenter](auto pEntity) { return pEntity->GetCoordinates().second < sCenter.second;} );
     // Split X part
-    Iterator xPartitionLower = std::partition(begin, yPartition, [sCenter](TCoordinates p) { return p.first < sCenter.first;} );
-    Iterator xPartitionUpper = std::partition(yPartition, end, [sCenter](TCoordinates p) { return p.first < sCenter.first;});
+    Iterator xPartitionLower = std::partition(begin, yPartition, [sCenter](auto pEntity) { return pEntity->GetCoordinates().first < sCenter.first;} );
+    Iterator xPartitionUpper = std::partition(yPartition, end, [sCenter](auto pEntity) { return pEntity->GetCoordinates().first < sCenter.first;});
 
     sTree.sNodes[result].arrChildNodes[0][0] = build_impl(sTree, {bbox.tBottomCorner, sCenter}, begin, xPartitionLower, uDepthLimit-1);
     sTree.sNodes[result].arrChildNodes[0][1] = build_impl(sTree, { {sCenter.first, bbox.tBottomCorner.second}, {bbox.tTopCorner.first, sCenter.second }}, xPartitionLower, yPartition, uDepthLimit-1);
@@ -95,10 +99,12 @@ uint16_t build_impl(QuadTree& sTree, Box bbox, Iterator begin, Iterator end, uin
     return result;
 }
 
-template <typename Iterator>
-QuadTree build(Iterator begin, Iterator end)
+static QuadTree buildQuadTree(const std::vector<Entity*>& sObjects)
 {
     QuadTree ret;
-    ret.uRootID = build_impl(ret, CreateBoundingBox(begin, end), begin, end, 64);
+    ret.sObjects = sObjects;
+    ret.uRootID = build_impl(ret, CreateBoundingBox(ret.sObjects.begin(), ret.sObjects.end()), ret.sObjects.begin(), ret.sObjects.end(), 64);
+    std::cout << "QUAD TREE Complete\n";
+    ret.arrBegin.push_back(ret.sObjects.size());
     return ret;
 }

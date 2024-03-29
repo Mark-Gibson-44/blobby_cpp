@@ -15,7 +15,7 @@ enum class DIRECTION : uint8_t
 class Player final : public Entity
 {
 public:
-    Player(uint16_t uXCoord, uint16_t uYCoord, uint16_t uSize) noexcept;
+    Player(uint16_t uXCoord, uint16_t uYCoord, uint16_t uSize, uint16_t uID) noexcept;
     void Act() override;
 
 private:

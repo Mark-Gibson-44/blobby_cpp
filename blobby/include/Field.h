@@ -20,7 +20,7 @@ public:
 private:
     std::vector<std::unique_ptr<Entity>> m_arrGameEntities;
 
-
+    QuadTree m_sField;
     const uint32_t m_uHeight;
     const uint32_t m_uWidth;
 
