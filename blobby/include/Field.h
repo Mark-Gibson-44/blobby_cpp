@@ -18,7 +18,7 @@ public:
 
 
 private:
-    std::vector<std::unique_ptr<Entity>> m_arrGameEntities;
+    std::vector<std::shared_ptr<Entity>> m_arrGameEntities;
 
     QuadTree m_sField;
     const uint32_t m_uHeight;

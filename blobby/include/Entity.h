@@ -17,7 +17,9 @@ public:
 
     Entity() noexcept;
     Entity(uint16_t uXCoord, uint16_t uYCoord, uint16_t uRadius, uint16_t m_uID) noexcept; 
-
+    Entity(const Entity&) = delete;
+    Entity& operator=(const Entity&) = delete;
+    ~Entity() = default;
     // Is another object colliding with the current object
     bool IsColliding(const Entity& sOtherEntity) noexcept;
 

@@ -3,7 +3,7 @@
 int main()
 {
 
-    Field sField(10, 10, 3);
+    Field sField(20, 20, 3);
 
     sField.Run();
     return 0;
