@@ -28,5 +28,4 @@ endif()
 
 add_subdirectory(blobby)
 
-#add_subdirectory(tests)
 
