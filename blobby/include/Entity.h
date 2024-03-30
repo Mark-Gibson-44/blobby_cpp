@@ -11,7 +11,9 @@ class Entity
 
 public:
     // Function each Inherited Entity object must implement to move
-    virtual void Act() = 0;
+    virtual void Act(uint16_t uMaxWidth, uint16_t uMaxHeight) = 0;
+    virtual void Consume() = 0;
+    //virtual void LogEntity() = 0;
 
 public:
 
@@ -21,10 +23,13 @@ public:
     Entity& operator=(const Entity&) = delete;
     ~Entity() = default;
     // Is another object colliding with the current object
-    bool IsColliding(const Entity& sOtherEntity) noexcept;
-
+    bool IsColliding(const Entity& sOtherEntity);
+    bool HandleCollision(Entity& sOtherEntity);  
     TCoordinates GetCoordinates() const noexcept;
-    inline uint8_t GetRadius() const { return m_uRadius; }
+    uint16_t GetRadius() const { return m_uRadius; }
+    uint16_t GetID() const { return m_uID; }
+
+
 protected:
 
     uint16_t m_uXCoord;

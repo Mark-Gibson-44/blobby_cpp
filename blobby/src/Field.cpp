@@ -26,13 +26,14 @@ void Field::Run()
         for(uint16_t uEntityNum = 0; uEntityNum < m_arrGameEntities.size(); uEntityNum++)
         {
             auto& sEntity = m_arrGameEntities[uEntityNum];
-            sEntity->Act();
+            sEntity->Act(this->m_uWidth, this->m_uHeight);
 
-            auto numErased = std::erase_if(m_arrGameEntities, [=](std::shared_ptr<Entity> sOtherEntities){ return sEntity->IsColliding(*sOtherEntities.get()) && sEntity.get() != sOtherEntities.get(); });
+            auto numErased = std::erase_if(m_arrGameEntities, [=](std::shared_ptr<Entity> sOtherEntities){ return sEntity.get() != sOtherEntities.get() && sEntity->HandleCollision(*sOtherEntities.get()); });
             std::cout << "Number of collsions = "  << numErased << '\n';
             if(m_arrGameEntities.size() == 1)
             {
                 std::cout << "FINISH\n";
+                //std::cout << "Player finished with size = "  << m_arrGameEntities[0]->GetSize() << '\n';
                 return;
             }
         }
