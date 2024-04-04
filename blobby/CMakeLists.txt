@@ -8,7 +8,6 @@ set(HEADERS
 
 file(GLOB SOURCES "src/*.cpp")
 
-
 # Create executable
 add_executable(YourExecutable ${SOURCES})
 

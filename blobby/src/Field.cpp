@@ -33,7 +33,6 @@ void Field::Run()
             if(m_arrGameEntities.size() == 1)
             {
                 std::cout << "FINISH\n";
-                //std::cout << "Player finished with size = "  << m_arrGameEntities[0]->GetSize() << '\n';
                 return;
             }
         }

@@ -21,7 +21,7 @@ bool Entity::IsColliding(const Entity& sOtherEntity)
     auto [uOtherX, uOtherY] = sOtherEntity.GetCoordinates();
     
     
-    return IsWithinRange(m_uXCoord, uOtherX, m_uRadius);
+    return IsWithinRange(m_uXCoord, uOtherX, m_uRadius) && IsWithinRange(m_uYCoord, uOtherY, m_uRadius);
 }
 
 

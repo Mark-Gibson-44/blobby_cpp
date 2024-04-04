@@ -5,3 +5,11 @@ file(GLOB SOURCE_FILES "*.cpp")
 
 # Add the source files to the project's executable
 target_sources(YourExecutable PRIVATE ${SOURCE_FILES})
+
+add_library (
+            Test_LIB
+            Entity.cpp
+            Player.cpp
+            Field.cpp
+            utils.cpp
+            )

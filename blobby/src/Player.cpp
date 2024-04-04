@@ -16,7 +16,7 @@ void Player::Act(uint16_t uMaxWidth, uint16_t uMaxHeight)
 
 void Player::Consume()
 {
-    if(m_uRadius + 1 > m_uRadius)
+    if(decltype(m_uRadius)(m_uRadius + 1) > m_uRadius)
     {
         m_uRadius++;
     }

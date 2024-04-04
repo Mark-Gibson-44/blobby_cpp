@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 
+#include "Logger.h"
 #include "Quadtree.h"
 
 

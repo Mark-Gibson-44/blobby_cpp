@@ -5,3 +5,6 @@ file(GLOB HEADER_FILES "*.h")
 
 # Add the header files to the project's include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+add_library(YourLibrary INTERFACE)
+target_include_directories(YourLibrary INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
